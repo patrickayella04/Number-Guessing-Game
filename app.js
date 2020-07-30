@@ -9,7 +9,7 @@
  // Game Values
 let min = 1,
     max = 10,
-    winningNum = 2,
+    winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
 // UI Elements
@@ -23,6 +23,13 @@ const game = document.querySelector('#game'),
 // Assign UI min and max
 minNum.textContent = min;
 maxNum.textContent = max;
+
+// Play agian event listener - add to parent for even delegation
+game.addEventListener('mousedown', function (e) { // click will reload the page to quickly so we use mousedown
+    if (e.target.className === 'play-again') {
+        window.location.reload(); // reloads the page
+    }
+} )
 
 // Listen for guess
 guessBtn.addEventListener('click', function () {
@@ -101,7 +108,18 @@ function gameOver(won, msg) {
     message.style.color = color;
     // Set message
     setMessage(msg);
+
+    // Play Again?
+    guessBtn.value = 'Play Again';
+    // we add a new class name, because we will add a new event handler to this button.
+    guessBtn.className += 'play-again'; // we append a class name.
 }
+
+function getRandomNum(min, max) {
+    // return this into winningNum
+    return Math.floor(Math.random()*(max-min + 1)+min);// max-min equals 9, + 1 eqauls 10. Random() will give number between 1-9. so we add min which in our cas is 1 but it might be something else for someone elses game. so we use its variable of min. We then wrap everything in Math.floor which is a method that rounds numbers down to whole numbers.
+}
+
 
 // Set Message
 function setMessage(msg, color) {
