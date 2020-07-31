@@ -8,7 +8,7 @@
 
  // Game Values
 let min = 1,
-    max = 10,
+    max = 11,
     winningNum = getRandomNum(min, max),
     guessesLeft = 3;
 
